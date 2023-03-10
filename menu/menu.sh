@@ -8,26 +8,6 @@ clear
 clear && clear && clear
 clear;clear;clear
 
-# // License Status
-if [[ $( cat /etc/${Auther}/license-remaining-active-days.db | awk '{print $1}' ) -lt 0 ]]; then
-    export Status_License='Not Activated'
-else
-    export Status_License='Activated'
-fi
-
-# // Exporting RED BG
-export RED_BG='\e[41m'
-
-# // Exporting Addons Tools
-export End_License=$( curl -s https://${Server_URLL}/validated-registered-license-key.txt | grep -w $Your_License_Key | cut -d ' ' -f 4 | awk '{print $1}' );
-export Start_License=$( curl -s https://${Server_URLL}/validated-registered-license-key.txt | grep -w $Your_License_Key | cut -d ' ' -f 3 | awk '{print $1}' );
-export Issue_License=$( curl -s https://${Server_URLL}/validated-registered-license-key.txt | grep -w $Your_License_Key | cut -d ' ' -f 9-100 | awk '{print $1}' );
-export Limit_License=$( curl -s https://${Server_URLL}/validated-registered-license-key.txt | grep -w $Your_License_Key | cut -d ' ' -f 2 | awk '{print $1}' );
-export Sekarang=`date -d "0 days" +"%Y-%m-%d"`
-export Tanggal_Expired_Dalam_Hitungan_Detik=$(date -d "$End_License" +%s)
-export Tanggal_Sekarang_Dalam_Hitungan_Detik=$(date -d "$Sekarang" +%s)
-export Sisa_Hari_Masa_Aktif=$(( ($Tanggal_Expired_Dalam_Hitungan_Detik - $Tanggal_Sekarang_Dalam_Hitungan_Detik) / 86400 ))
-export tram=$( free -m | awk 'NR==2 {print $2}' )
 clear
 # TOTAL ACC CREATE VMESS WS
 vmess=$(grep -c -E "^### " "/etc/xray/v2ray-tls.json")
